@@ -9,6 +9,8 @@ app.use(bodyParser.json())
 app.get('*', (req, res) => {
     axios.get('https://api.darksky.net/forecast/00011a7762d5bc72610f53adb3ccb86f/51.5246693,-0.3420173?units=ca&exclude=minutely,alerts,flags')
       .then(response => {
+        res.header("Access-Control-Allow-Origin", "*");
+        res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
         res.status(200).send(response.data)
       })
       .catch(error => {

@@ -26,7 +26,8 @@ app.get('*', (req, res) => {
           if (a.expectedArrival > b.expectedArrival) return 1
           return 0
         })
-
+        res.header("Access-Control-Allow-Origin", "*");
+        res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
         res.status(200).send(buses)
       })
       .catch(error => {
