@@ -46,4 +46,13 @@ app.post('*', (req, res) => {
     });
 })
 
+app.delete('*', (req, res) => {
+  console.log(req.query.id)
+    Messages.findOneAndDelete( { '_id' : req.query.id }, (err, message) => {
+        if (err) return res.status(500).send(err)
+
+        return res.status(200).send(message);
+    });
+})
+
 module.exports = app
