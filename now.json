@@ -1,10 +1,13 @@
 {
-    "version": 2,
-    "name": "mirrorapi",
-    "builds": [
-        { "src": "**/*.js", "use": "@now/node" }
-    ],
-    "env": {
-      "MONGO_ADDRESS": "@mongo-address"
+  "version": 2,
+  "name": "mirrorapi",
+  "builds": [
+    {
+      "src": "**/*.js",
+      "use": "@now/node"
     }
+  ],
+  "env": {
+    "MONGO_ADDRESS": "@magicmirror-mongo-address"
+  }
 }
