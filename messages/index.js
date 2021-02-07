@@ -7,16 +7,17 @@ const mongoose = require("mongoose");
 
 const app = express();
 const MessageSchema = new mongoose.Schema({
-  message: String,
-  createdAt: { type: Date, default: Date.now }
+  message: String
 });
 const Messages = mongoose.model("Messages", MessageSchema);
 
 // this is our MongoDB database
 const { MONGO_ADDRESS } = process.env;
 
-// connects our back end code with the database
-mongoose.connect(MONGO_ADDRESS, { useNewUrlParser: true });
+mongoose.connect(MONGO_ADDRESS, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+});
 const db = mongoose.connection;
 
 app.use(helmet());
@@ -28,16 +29,8 @@ app.use(bodyParser.json());
 app.get("*", async (req, res) => {
   try {
     const numberOfDaysToLookBack = 365;
-    let messages = await Messages.find({
-      createdAt: {
-        $gte: new Date(
-          new Date().getTime() - numberOfDaysToLookBack * 24 * 60 * 60 * 1000
-        )
-      }
-    })
-      .sort({ createdAt: "desc" })
-      .lean()
-      .exec();
+    let messages = await Messages.find({});
+
     res.header("Access-Control-Allow-Origin", "*");
     res.header(
       "Access-Control-Allow-Headers",
