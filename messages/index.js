@@ -27,7 +27,7 @@ app.use(bodyParser.json());
 
 app.get("*", async (req, res) => {
   try {
-    const numberOfDaysToLookBack = 1400;
+    const numberOfDaysToLookBack = 365;
     let messages = await Messages.find({
       createdAt: {
         $gte: new Date(
@@ -43,7 +43,7 @@ app.get("*", async (req, res) => {
       "Access-Control-Allow-Headers",
       "Origin, X-Requested-With, Content-Type, Accept"
     );
-    res.status(200).send((data: messages));
+    res.status(200).send({ data: messages });
   } catch (err) {
     return res.status(500).send(err);
   }
